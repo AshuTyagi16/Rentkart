@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="top|bottom|center_vertical|fill_vertical|center|fill"
+        android:orientation="vertical">
+
+        <com.sasuke.rentkart.customfonts.MyTextView_Montserrat_Alternates_Regular
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:text="RENTKART"
+            android:textColor="#000000"
+            android:textSize="25sp" />
+
+        <com.sasuke.rentkart.customfonts.EditText_Roboto_Regular
+            android:id="@+id/et_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/edittext_modified_states"
+            android:hint="Email ID"
+            android:imeOptions="actionNone|actionSearch|actionSend|actionNext|actionDone|actionPrevious"
+            android:inputType="text|textCapCharacters|textCapWords|textCapSentences|textAutoCorrect|textAutoComplete|textMultiLine|textImeMultiLine|textNoSuggestions|textUri|textEmailAddress|textEmailSubject|textShortMessage|textLongMessage|textPersonName|textPostalAddress|textPassword|textVisiblePassword|textWebEditText|textFilter|textPhonetic|textWebEmailAddress|textWebPassword|phone|time"
+            android:maxLines="1"
+            android:paddingBottom="15dp"
+            android:paddingLeft="25dp"
+            android:paddingTop="15dp"
+            android:textColor="@color/stringcolor"
+            android:textSize="15sp" />
+
+        <com.sasuke.rentkart.customfonts.EditText_Roboto_Regular
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/edittext_modified_states"
+            android:hint="Password"
+            android:imeOptions="actionGo|actionSearch|actionSend|actionNext|actionDone|actionPrevious"
+            android:inputType="text|textCapCharacters|textCapWords|textCapSentences|textAutoCorrect|textAutoComplete|textMultiLine|textImeMultiLine|textNoSuggestions|textUri|textEmailAddress|textEmailSubject|textShortMessage|textLongMessage|textPersonName|textPostalAddress|textPassword|textVisiblePassword|textWebEditText|textFilter|textPhonetic|textWebEmailAddress|textWebPassword|phone"
+            android:maxLines="1"
+            android:paddingBottom="15dp"
+            android:paddingLeft="25dp"
+            android:paddingTop="15dp"
+            android:textColor="@color/stringcolor"
+            android:textSize="15sp" />
+
+        <com.sasuke.rentkart.customfonts.MyTextView_Roboto_Medium
+            android:id="@+id/tv_signin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/background_rounded_blue"
+            android:gravity="center"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
+            android:text="Sign In"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <com.sasuke.rentkart.customfonts.MyTextView_Roboto_Regular
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="40dp"
+            android:text="OR"
+            android:textColor="#000000"
+            android:textSize="17sp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_google_signin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|bottom|center_vertical|fill_vertical|center|fill"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:background="@drawable/background_rounded_red"
+            android:orientation="horizontal"
+            android:paddingBottom="13dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="28dp"
+            android:paddingTop="13dp">
+
+            <com.sasuke.rentkart.customfonts.MyTextView_Roboto_Regular
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|bottom|center_vertical|fill_vertical|center|fill"
+                android:layout_marginTop="4dp"
+                android:text="Signin with GOOGLE"
+                android:textColor="#ffffff"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:id="@+id/googlePlus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/ic_google_plus" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:layout_toLeftOf="@+id/googlePlus"
+                android:background="@color/white" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_facebook_signin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/background_rounded_darkblue"
+            android:gravity="top|bottom|center_vertical|fill_vertical|center|fill"
+            android:orientation="horizontal"
+            android:paddingBottom="13dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="28dp"
+            android:paddingTop="13dp">
+
+            <com.sasuke.rentkart.customfonts.MyTextView_Roboto_Regular
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|bottom|center_vertical|fill_vertical|center|fill"
+                android:layout_marginTop="4dp"
+                android:text="Signin with FACEBOOK"
+                android:textColor="@color/white"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:id="@+id/facebook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/ic_facebook" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:layout_toLeftOf="@+id/facebook"
+                android:background="@color/white" />
+        </RelativeLayout>
+
+        <com.sasuke.rentkart.customfonts.MyTextView_Roboto_Regular
+            android:id="@+id/tv_signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Dont have an account? Signup"
+            android:textColor="@color/stringcolor"
+            android:textSize="15sp" />
+    </LinearLayout>
+</LinearLayout>
