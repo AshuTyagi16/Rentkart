@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:gravity="top|bottom|center_vertical|fill_vertical|center|fill"
+        android:gravity="center"
         android:orientation="vertical">
 
         <com.sasuke.rentkart.customfonts.MyTextView_Montserrat_Alternates_Regular

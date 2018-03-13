@@ -19,14 +19,40 @@ android {
 }
 
 dependencies {
+    final SUPPORT_LIBRARY_VERSION = "26.1.0";
+    final BUTTERKNIFE_VERSION = "8.8.1";
+
+    //Testing
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    implementation 'com.android.support:cardview-v7:26.1.0'
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    compile 'com.squareup.picasso:picasso:2.5.2'
+
+    //Support
+    implementation "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
+    implementation "com.android.support:cardview-v7:$SUPPORT_LIBRARY_VERSION"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION"
+
+    //ButterKnife
+    implementation "com.jakewharton:butterknife:$BUTTERKNIFE_VERSION"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$BUTTERKNIFE_VERSION"
+
+    //Image Loading
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    //Network
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.8.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+
+    //Data
+    implementation 'com.google.code.gson:gson:2.8.2'
+
+    //Form Validator
+    implementation 'com.mobsandgeeks:android-saripaar:2.0.3'
+
+    //Dialog
+    implementation 'cn.pedant.sweetalert:library:1.3'
 }

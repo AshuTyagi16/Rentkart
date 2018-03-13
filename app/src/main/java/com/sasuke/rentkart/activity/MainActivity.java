@@ -1,5 +1,7 @@
 package com.sasuke.rentkart.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.app.Fragment;
@@ -35,6 +37,10 @@ public class MainActivity extends FragmentActivity {
 
     private FragmentStatePagerAdapter adapter;
     private List<CommonFragment> fragments = new ArrayList<>();
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, MainActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
