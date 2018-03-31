@@ -17,11 +17,9 @@ public class SuccessDialog {
 
     private MaterialDialog successDialog;
 
-    private OnSuccessDialogListener onSuccessDialogListener;
 
     public SuccessDialog(Context context, String title, String confirmText) {
         init(context, title, confirmText);
-        onSuccessDialogListener = (OnSuccessDialogListener) context;
     }
 
     private void init(Context context, String title, String confirmText) {
@@ -29,13 +27,11 @@ public class SuccessDialog {
                 .title(title)
                 .titleColor(ContextCompat.getColor(context, R.color.black))
                 .positiveText(confirmText)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        onSuccessDialogListener.onSuccessConfirmClick(dialog);
-                    }
-                })
                 .build();
+    }
+
+    public MaterialDialog.Builder getInstance() {
+        return successDialog.getBuilder();
     }
 
     public void showDialog() {
@@ -48,9 +44,5 @@ public class SuccessDialog {
         if (successDialog != null && successDialog.isShowing()) {
             successDialog.dismiss();
         }
-    }
-
-    public interface OnSuccessDialogListener {
-        void onSuccessConfirmClick(MaterialDialog sweetAlertDialog);
     }
 }
