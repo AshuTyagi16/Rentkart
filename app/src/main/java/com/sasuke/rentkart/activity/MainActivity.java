@@ -39,7 +39,9 @@ public class MainActivity extends FragmentActivity {
     private List<CommonFragment> fragments = new ArrayList<>();
 
     public static Intent newIntent(Context context) {
-        return new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK);
+        return intent;
     }
 
     @Override

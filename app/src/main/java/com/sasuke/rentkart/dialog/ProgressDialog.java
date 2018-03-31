@@ -1,9 +1,11 @@
 package com.sasuke.rentkart.dialog;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.sasuke.rentkart.R;
+
 
 /**
  * Created by abc on 3/13/2018.
@@ -11,28 +13,33 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class ProgressDialog {
 
-    private SweetAlertDialog dialog;
+    private MaterialDialog progressDialog;
 
-    public ProgressDialog(Context context, String progressMessage) {
-        init(context, progressMessage);
+    public ProgressDialog(Context context, String title, String description, boolean isCancellable) {
+        init(context, title, description, isCancellable);
     }
 
-    private void init(Context context, String message) {
-        dialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
-        dialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        dialog.setTitleText(message);
-        dialog.setCancelable(false);
+    private void init(Context context, String title, String description, boolean isCancellable) {
+        progressDialog = new MaterialDialog.Builder(context)
+                .title(title)
+                .titleColor(ContextCompat.getColor(context, R.color.black))
+                .content(description)
+                .contentColor(ContextCompat.getColor(context, R.color.notification_action_color_filter))
+                .cancelable(isCancellable)
+                .canceledOnTouchOutside(isCancellable)
+                .progress(true, 0)
+                .build();
     }
 
     public void showDialog() {
-        if (dialog != null && !dialog.isShowing()) {
-            dialog.show();
+        if (progressDialog != null && !progressDialog.isShowing()) {
+            progressDialog.show();
         }
     }
 
     public void dismissDialog() {
-        if (dialog != null && dialog.isShowing()) {
-            dialog.dismiss();
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
         }
     }
 }

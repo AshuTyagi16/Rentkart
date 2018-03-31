@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Rentkart</string>
+
+    <!-- Progress Dialog -->
+    <string name="please_wait">Please wait...</string>
+
+    <!-- Success Dialog -->
+    <string name="register_success">Registered successfully</string>
+    <string name="login_success">Logged in successfully</string>
+    <string name="login">Login</string>
+    <string name="yeah">Yeah</string>
+    <string name="ok">Ok</string>
+
+    <!-- Failure Dialog -->
+    <string name="failed_to_register">Failed to register</string>
+    <string name="login_failed">Login Failed</string>
+    <string name="retry">Retry</string>
 </resources>

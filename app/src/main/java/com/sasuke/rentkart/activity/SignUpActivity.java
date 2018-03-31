@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
@@ -15,7 +16,9 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
 import com.sasuke.rentkart.R;
 import com.sasuke.rentkart.customfonts.EditText_Roboto_Regular;
+import com.sasuke.rentkart.dialog.FailureDialog;
 import com.sasuke.rentkart.dialog.ProgressDialog;
+import com.sasuke.rentkart.dialog.SuccessDialog;
 import com.sasuke.rentkart.model.User;
 import com.sasuke.rentkart.network.RentkartApi;
 import com.sasuke.rentkart.util.ValidationListener;
@@ -29,7 +32,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SignUpActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity implements
+        SuccessDialog.OnSuccessDialogListener,
+        FailureDialog.OnFailureDialogListener {
 
 
     @NotEmpty
@@ -55,7 +60,9 @@ public class SignUpActivity extends AppCompatActivity {
     EditText_Roboto_Regular etConfirmPassword;
 
     private Validator validator;
-//    private ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
+    private SuccessDialog successDialog;
+    private FailureDialog failureDialog;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, SignUpActivity.class);
@@ -66,7 +73,11 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         ButterKnife.bind(this);
-//        progressDialog = new ProgressDialog(this, "Please wait...");
+
+        progressDialog = new ProgressDialog(this, getString(R.string.please_wait), "Sit back & relax", false);
+        successDialog = new SuccessDialog(this, getString(R.string.register_success), getString(R.string.yeah));
+        failureDialog = new FailureDialog(this, getString(R.string.failed_to_register), getString(R.string.retry));
+
         validator = new Validator(this);
 
         validator.setValidationListener(new ValidationListener() {
@@ -78,7 +89,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onValidationFailed(List<ValidationError> list) {
                 super.onValidationFailed(list);
-//                progressDialog.dismissDialog();
+                progressDialog.dismissDialog();
             }
 
             @Override
@@ -93,15 +104,15 @@ public class SignUpActivity extends AppCompatActivity {
                 RentkartApi.getInstance().registerUser(name, username, email, password, phoneNumber).enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
-//                        progressDialog.dismissDialog();
-                        Toast.makeText(SignUpActivity.this, "SUCCESS : " + response.body().isSuccess(), Toast.LENGTH_SHORT).show();
-                        startActivity(LoginActivity.newIntent(SignUpActivity.this));
+                        progressDialog.dismissDialog();
+                        successDialog.showDialog();
                     }
 
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
-//                        progressDialog.dismissDialog();
+                        progressDialog.dismissDialog();
                         Toast.makeText(SignUpActivity.this, "FAILED : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        failureDialog.showDialog();
                     }
                 });
 
@@ -112,11 +123,27 @@ public class SignUpActivity extends AppCompatActivity {
 
     @OnClick(R.id.tv_signup)
     public void register() {
-//        progressDialog.showDialog();
+        registerUser();
+    }
+
+    private void registerUser(){
+        progressDialog.showDialog();
         validator.validate();
     }
 
     private String getStringFromEditText(EditText editText) {
         return editText.getText().toString().trim();
+    }
+
+    @Override
+    public void onFailureConfirmClick(MaterialDialog materialDialog) {
+        materialDialog.dismiss();
+    }
+
+    @Override
+    public void onSuccessConfirmClick(MaterialDialog materialDialog) {
+        materialDialog.dismiss();
+        startActivity(LoginActivity.newIntent(this));
+        finish();
     }
 }
