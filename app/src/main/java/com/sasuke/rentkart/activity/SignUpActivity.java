@@ -55,7 +55,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText_Roboto_Regular etConfirmPassword;
 
     private Validator validator;
-    private ProgressDialog progressDialog;
+//    private ProgressDialog progressDialog;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, SignUpActivity.class);
@@ -66,7 +66,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         ButterKnife.bind(this);
-        progressDialog = new ProgressDialog(this, "Please wait...");
+//        progressDialog = new ProgressDialog(this, "Please wait...");
         validator = new Validator(this);
 
         validator.setValidationListener(new ValidationListener() {
@@ -78,7 +78,7 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onValidationFailed(List<ValidationError> list) {
                 super.onValidationFailed(list);
-                progressDialog.dismissDialog();
+//                progressDialog.dismissDialog();
             }
 
             @Override
@@ -90,24 +90,17 @@ public class SignUpActivity extends AppCompatActivity {
                 String phoneNumber = getStringFromEditText(etPhoneNumber);
                 String password = getStringFromEditText(etPassword);
 
-                User user = new User();
-                user.setName(name);
-                user.setUsername(username);
-                user.setEmail(email);
-                user.setPhoneNumber(phoneNumber);
-                user.setPassword(password);
-
-                RentkartApi.getInstance().registerUser(user).enqueue(new Callback<User>() {
+                RentkartApi.getInstance().registerUser(name, username, email, password, phoneNumber).enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
-                        progressDialog.dismissDialog();
+//                        progressDialog.dismissDialog();
                         Toast.makeText(SignUpActivity.this, "SUCCESS : " + response.body().isSuccess(), Toast.LENGTH_SHORT).show();
                         startActivity(LoginActivity.newIntent(SignUpActivity.this));
                     }
 
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
-                        progressDialog.dismissDialog();
+//                        progressDialog.dismissDialog();
                         Toast.makeText(SignUpActivity.this, "FAILED : " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -119,7 +112,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     @OnClick(R.id.tv_signup)
     public void register() {
-        progressDialog.showDialog();
+//        progressDialog.showDialog();
         validator.validate();
     }
 

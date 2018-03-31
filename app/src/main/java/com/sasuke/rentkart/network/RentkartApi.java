@@ -61,12 +61,12 @@ public class RentkartApi {
         service = retrofit.create(RentkartApiInterface.class);
     }
 
-    public Call<User> registerUser(User user) {
-        return service.registerUser(user);
+    public Call<User> registerUser(String name, String username, String email, String password, String phone_number) {
+        return service.registerUser(name, username, email, password, phone_number);
     }
 
-    public Call<User> loginUser(User user) {
-        return service.loginUser(user);
+    public Call<User> loginUser(String email, String password) {
+        return service.loginUser(email, password);
     }
 
     private OkHttpClient createHttpClient() {

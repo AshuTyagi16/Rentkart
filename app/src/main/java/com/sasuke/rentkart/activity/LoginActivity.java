@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText_Roboto_Regular etPassword;
 
     private Validator validator;
-    private ProgressDialog progressDialog;
+//    private ProgressDialog progressDialog;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, LoginActivity.class);
@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        progressDialog = new ProgressDialog(this, "Please wait...");
+//        progressDialog = new ProgressDialog(this, "Please wait...");
         validator = new Validator(this);
 
         validator.setValidationListener(new ValidationListener() {
@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onValidationFailed(List<ValidationError> list) {
                 super.onValidationFailed(list);
-                progressDialog.dismissDialog();
+//                progressDialog.dismissDialog();
             }
 
             @Override
@@ -71,20 +71,17 @@ public class LoginActivity extends AppCompatActivity {
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
 
-                User user = new User();
-                user.setEmail(email);
-                user.setPassword(password);
-                RentkartApi.getInstance().loginUser(user).enqueue(new Callback<User>() {
+                RentkartApi.getInstance().loginUser(email, password).enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
-                        progressDialog.dismissDialog();
+//                        progressDialog.dismissDialog();
                         Toast.makeText(LoginActivity.this, "SUCCESS : " + response.body().isSuccess(), Toast.LENGTH_SHORT).show();
                         startActivity(MainActivity.newIntent(LoginActivity.this));
                     }
 
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
-                        progressDialog.dismissDialog();
+//                        progressDialog.dismissDialog();
                         Toast.makeText(LoginActivity.this, "FAILED : " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -95,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(R.id.tv_signin)
     public void login() {
-        progressDialog.showDialog();
+//        progressDialog.showDialog();
         validator.validate();
     }
 }
