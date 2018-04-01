@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.sasuke.rentkart.R;
 import com.sasuke.rentkart.model.Item;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +31,12 @@ public class ItemsViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setItem(Item item) {
-
+        Picasso.get()
+                .load(item.getItemThumbnail())
+                .placeholder(R.drawable.placeholder_image_loading)
+                .error(R.drawable.placeholder_image_error)
+                .into(mIvCategoryThumbnail);
+        mTvTitle.setText(item.getItemName());
+        mTvDescription.setText(item.getItemDescription());
     }
 }

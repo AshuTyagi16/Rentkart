@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sasuke.rentkart.R;
+import com.sasuke.rentkart.activity.ItemsActivity;
 import com.sasuke.rentkart.model.Category;
 import com.squareup.picasso.Picasso;
 
@@ -25,12 +26,22 @@ public class CategoriesViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tv_description)
     TextView mTvDescription;
 
-    public CategoriesViewHolder(View itemView) {
+    private Category mCategory;
+
+    public CategoriesViewHolder(final View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mCategory != null)
+                    itemView.getContext().startActivity(ItemsActivity.newIntent(itemView.getContext(), mCategory.getCategoryId(), mCategory.getCategoryName()));
+            }
+        });
     }
 
     public void setCategory(Category category) {
+        mCategory = category;
         Picasso.get()
                 .load(category.getCategoryThumbnail())
                 .placeholder(R.drawable.placeholder_image_loading)

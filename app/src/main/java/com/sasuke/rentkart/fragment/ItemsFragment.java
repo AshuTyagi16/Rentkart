@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -15,10 +17,12 @@ import com.sasuke.rentkart.dialog.FailureDialog;
 import com.sasuke.rentkart.dialog.ProgressDialog;
 import com.sasuke.rentkart.model.Item;
 import com.sasuke.rentkart.network.RentkartApi;
+import com.sasuke.rentkart.util.ItemDecorator;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by abc on 4/1/2018.
@@ -28,18 +32,23 @@ public class ItemsFragment extends BaseFragment implements RentkartApi.OnGetItem
 
     @BindView(R.id.rv_items)
     RecyclerView mRvItems;
+    @BindView(R.id.tv_category_name)
+    TextView mTvCategoryName;
 
     private static final String EXTRA_CATEGORY_ID = "category_id";
+    private static final String EXTRA_CATEGORY_NAME = "category_name";
 
     private int categoryId;
+    private String categoryName;
     private ItemsAdapter mAdapter;
 
     private ProgressDialog progressDialog;
     private FailureDialog failureDialog;
 
-    public static ItemsFragment newInstance(int categoryId) {
+    public static ItemsFragment newInstance(int categoryId, String categoryName) {
         Bundle bundle = new Bundle();
         bundle.putInt(EXTRA_CATEGORY_ID, categoryId);
+        bundle.putString(EXTRA_CATEGORY_NAME, categoryName);
         ItemsFragment itemsFragment = new ItemsFragment();
         itemsFragment.setArguments(bundle);
         return itemsFragment;
@@ -58,11 +67,23 @@ public class ItemsFragment extends BaseFragment implements RentkartApi.OnGetItem
 
         if (getArguments() != null) {
             categoryId = getArguments().getInt(EXTRA_CATEGORY_ID);
+            categoryName = getArguments().getString(EXTRA_CATEGORY_NAME);
+            mTvCategoryName.setText(categoryName);
             mRvItems.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+            mRvItems.addItemDecoration(new ItemDecorator(
+                    getResources().getDimensionPixelSize(R.dimen.item_list_spacing),
+                    100));
             mAdapter = new ItemsAdapter();
             mRvItems.setAdapter(mAdapter);
             getItems();
         }
+    }
+
+
+    @OnClick(R.id.ll_back)
+    public void finishActivity() {
+        if (getActivity() != null)
+            getActivity().finish();
     }
 
     private void getItems() {

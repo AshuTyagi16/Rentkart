@@ -75,7 +75,7 @@ public class LoginFragment extends BaseFragment {
         validator.setValidationListener(new ValidationListener() {
             @Override
             public Context getContext() {
-                return getContext();
+                return getActivity();
             }
 
             @Override

@@ -28,8 +28,12 @@
         <activity
             android:name=".activity.SignUpActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".activity.CategoriesActivity" />
-        <activity android:name=".activity.ItemsActivity" />
+        <activity
+            android:name=".activity.CategoriesActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.ItemsActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 
 </manifest>

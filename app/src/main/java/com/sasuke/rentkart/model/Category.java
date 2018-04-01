@@ -11,7 +11,7 @@ public class Category {
 
     @SerializedName("category_id")
     @Expose
-    private Integer categoryId;
+    private int categoryId;
     @SerializedName("category_name")
     @Expose
     private String categoryName;
@@ -22,7 +22,7 @@ public class Category {
     @Expose
     private String categoryThumbnail;
 
-    public Integer getCategoryId() {
+    public int getCategoryId() {
         return categoryId;
     }
 
