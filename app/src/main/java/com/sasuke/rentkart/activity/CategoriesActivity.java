@@ -13,7 +13,9 @@ import com.sasuke.rentkart.fragment.CategoriesFragment;
 public class CategoriesActivity extends SingleFragmentActivity {
 
     public static Intent newIntent(Context context) {
-        return new Intent(context, CategoriesActivity.class);
+        Intent intent = new Intent(context, CategoriesActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        return intent;
     }
 
     @Override

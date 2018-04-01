@@ -16,11 +16,13 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
 import com.sasuke.rentkart.R;
 import com.sasuke.rentkart.activity.CategoriesActivity;
+import com.sasuke.rentkart.activity.HomeActivity;
 import com.sasuke.rentkart.activity.MainActivity;
 import com.sasuke.rentkart.customfonts.EditText_Roboto_Regular;
 import com.sasuke.rentkart.dialog.FailureDialog;
 import com.sasuke.rentkart.dialog.ProgressDialog;
 import com.sasuke.rentkart.dialog.SuccessDialog;
+import com.sasuke.rentkart.manager.PreferenceManager;
 import com.sasuke.rentkart.model.User;
 import com.sasuke.rentkart.network.RentkartApi;
 import com.sasuke.rentkart.util.ValidationListener;
@@ -68,7 +70,7 @@ public class LoginFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         progressDialog = new ProgressDialog(getActivity(), getResources().getString(R.string.please_wait), "Sit back & relax", false);
         successDialog = new SuccessDialog(getActivity(), getResources().getString(R.string.login_success), getString(R.string.yeah));
-        failureDialog = new FailureDialog(getActivity(), getResources().getString(R.string.login_failed), getString(R.string.retry));
+        failureDialog = new FailureDialog(getActivity(), getResources().getString(R.string.login_failed), "", getString(R.string.retry));
 
         validator = new Validator(this);
 
@@ -94,7 +96,13 @@ public class LoginFragment extends BaseFragment {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
                         progressDialog.dismissDialog();
-                        successDialog.showDialog();
+                        if (response.body().isSuccess()) {
+                            PreferenceManager.setUser(getActivity(), response.body());
+                            successDialog.showDialog();
+                        } else {
+                            failureDialog = new FailureDialog(getActivity(), getResources().getString(R.string.login_failed), response.body().getError(), getString(R.string.retry));
+                            failureDialog.showDialog();
+                        }
                     }
 
                     @Override
@@ -111,7 +119,7 @@ public class LoginFragment extends BaseFragment {
             @Override
             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                 dialog.dismiss();
-                startActivity(CategoriesActivity.newIntent(getActivity()));
+                startActivity(HomeActivity.newIntent(getActivity()));
             }
         });
 

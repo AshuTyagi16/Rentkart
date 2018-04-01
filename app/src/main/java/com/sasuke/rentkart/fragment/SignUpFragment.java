@@ -81,7 +81,7 @@ public class SignUpFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         progressDialog = new ProgressDialog(getContext(), getString(R.string.please_wait), "Sit back & relax", false);
         successDialog = new SuccessDialog(getContext(), getString(R.string.register_success), getString(R.string.yeah));
-        failureDialog = new FailureDialog(getContext(), getString(R.string.failed_to_register), getString(R.string.retry));
+        failureDialog = new FailureDialog(getContext(), getString(R.string.failed_to_register), "", getString(R.string.retry));
 
         validator = new Validator(this);
 
@@ -110,7 +110,12 @@ public class SignUpFragment extends BaseFragment {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
                         progressDialog.dismissDialog();
-                        successDialog.showDialog();
+                        if (response.body().isSuccess())
+                            successDialog.showDialog();
+                        else {
+                            failureDialog = new FailureDialog(getContext(), getString(R.string.failed_to_register), response.body().getError(), getString(R.string.retry));
+                            failureDialog.showDialog();
+                        }
                     }
 
                     @Override

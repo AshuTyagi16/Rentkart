@@ -17,15 +17,16 @@ public class FailureDialog {
 
     private MaterialDialog failureDialog;
 
-
-    public FailureDialog(Context context, String title, String confirmText) {
-        init(context, title, confirmText);
+    public FailureDialog(Context context, String title, String content, String confirmText) {
+        init(context, title, content, confirmText);
     }
 
-    private void init(Context context, String title, String confirmText) {
+    private void init(Context context, String title, String content, String confirmText) {
         failureDialog = new MaterialDialog.Builder(context)
                 .title(title)
                 .titleColor(ContextCompat.getColor(context, R.color.black))
+                .content(content)
+                .contentColor(ContextCompat.getColor(context, R.color.notification_action_color_filter))
                 .positiveText(confirmText)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override

@@ -100,7 +100,7 @@ public class ItemsFragment extends BaseFragment implements RentkartApi.OnGetItem
     @Override
     public void onGetItemsForCategoryFailure(Throwable t) {
         progressDialog.dismissDialog();
-        failureDialog = new FailureDialog(getActivity(), "FAILED : " + t.getMessage(), getString(R.string.retry));
+        failureDialog = new FailureDialog(getActivity(), "FAILED : " + t.getMessage(), "", getString(R.string.retry));
         failureDialog.showDialog();
 
         failureDialog.getInstance().onPositive(new MaterialDialog.SingleButtonCallback() {

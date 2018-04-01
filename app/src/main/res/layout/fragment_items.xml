@@ -1,46 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+
+    <com.loopeer.shadow.ShadowView
+        android:id="@+id/shadow_view"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/white">
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:foreground="?attr/selectableItemBackground"
+        app:cornerRadius="4dp"
+        app:shadowMarginBottom="8dp"
+        app:shadowRadius="10dp">
 
-        <LinearLayout
-            android:id="@+id/ll_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="20dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="20dp"
-            android:paddingTop="20dp">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white">
 
-            <ImageView
+            <LinearLayout
+                android:id="@+id/ll_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:rotation="90"
-                android:src="@drawable/ic_arrow_down" />
-        </LinearLayout>
+                android:orientation="horizontal"
+                android:paddingBottom="20dp"
+                android:paddingEnd="20dp"
+                android:paddingStart="10dp"
+                android:paddingTop="20dp">
 
-        <com.sasuke.rentkart.customfonts.MyTextView_Roboto_Medium
-            android:id="@+id/tv_category_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Signup"
-            android:gravity="center"
-            android:textColor="#666666"
-            android:textSize="16dp" />
-    </android.support.v7.widget.Toolbar>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:rotation="90"
+                    android:src="@drawable/ic_arrow_down" />
+            </LinearLayout>
+
+            <com.sasuke.rentkart.customfonts.MyTextView_Roboto_Medium
+                android:id="@+id/tv_category_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Signup"
+                android:textColor="#666666"
+                android:textSize="16dp" />
+        </android.support.v7.widget.Toolbar>
+    </com.loopeer.shadow.ShadowView>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_items"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/shadow_view"
         android:layout_centerInParent="true" />
 </RelativeLayout>

@@ -104,6 +104,20 @@ public class RentkartApi {
         });
     }
 
+    public void getItemsList(final OnGetItemsListener onGetItemsListener) {
+        service.getItemsList().enqueue(new Callback<ArrayList<Item>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Item>> call, Response<ArrayList<Item>> response) {
+                onGetItemsListener.onGetItemsSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Item>> call, Throwable t) {
+                onGetItemsListener.onGetItemsFailure(t);
+            }
+        });
+    }
+
     /*************LISTENERS*************/
     public interface OnGetCategoriesListener {
         void onGetCategoriesSuccess(ArrayList<Category> list);
@@ -115,6 +129,12 @@ public class RentkartApi {
         void onGetItemsForCategorySuccess(ArrayList<Item> list);
 
         void onGetItemsForCategoryFailure(Throwable t);
+    }
+
+    public interface OnGetItemsListener {
+        void onGetItemsSuccess(ArrayList<Item> list);
+
+        void onGetItemsFailure(Throwable t);
     }
 
     private OkHttpClient createHttpClient() {

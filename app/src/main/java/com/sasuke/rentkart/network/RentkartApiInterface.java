@@ -29,6 +29,9 @@ public interface RentkartApiInterface {
     @GET("getCategories.php")
     Call<ArrayList<Category>> getCategories();
 
+    @GET("getItemsList.php")
+    Call<ArrayList<Item>> getItemsList();
+
     @GET("getItemsForCategoryId.php")
     Call<ArrayList<Item>> getItemsForCategory(@Query("id") int categoryId);
 }

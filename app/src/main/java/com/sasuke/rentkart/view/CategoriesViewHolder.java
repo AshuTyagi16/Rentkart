@@ -5,10 +5,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.loopeer.shadow.ShadowView;
 import com.sasuke.rentkart.R;
 import com.sasuke.rentkart.activity.ItemsActivity;
 import com.sasuke.rentkart.model.Category;
 import com.squareup.picasso.Picasso;
+
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,6 +22,8 @@ import butterknife.ButterKnife;
 
 public class CategoriesViewHolder extends RecyclerView.ViewHolder {
 
+    @BindView(R.id.shadow_view)
+    ShadowView mSvContainer;
     @BindView(R.id.iv_category_thumbnail)
     ImageView mIvCategoryThumbnail;
     @BindView(R.id.tv_title)
@@ -28,9 +33,14 @@ public class CategoriesViewHolder extends RecyclerView.ViewHolder {
 
     private Category mCategory;
 
+    private int[] colors = {0xffff5722, 0xff1875f0, 0xff009688, 0xff123456, 0xFF635D4F};
+
     public CategoriesViewHolder(final View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+        int color = colors[getRandom()];
+        mSvContainer.setShadowColor(color);
+        mSvContainer.setForegroundColor(color);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,5 +59,9 @@ public class CategoriesViewHolder extends RecyclerView.ViewHolder {
                 .into(mIvCategoryThumbnail);
         mTvTitle.setText(category.getCategoryName());
         mTvDescription.setText(category.getCategoryDescription());
+    }
+
+    private int getRandom() {
+        return new Random().nextInt(5);
     }
 }

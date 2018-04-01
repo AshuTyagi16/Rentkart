@@ -15,7 +15,9 @@
         tools:replace="android:icon">
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.DetailActivity" />
-        <activity android:name=".activity.LoginPromptActivity">
+        <activity
+            android:name=".activity.LoginPromptActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,6 +35,9 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activity.ItemsActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.HomeActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 

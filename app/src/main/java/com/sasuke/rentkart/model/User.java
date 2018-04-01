@@ -8,6 +8,9 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class User {
+    @SerializedName("user_id")
+    @Expose
+    private int userId;
     @SerializedName("name")
     @Expose
     private String name;
@@ -26,6 +29,9 @@ public class User {
     @SerializedName("success")
     @Expose
     private boolean success;
+    @SerializedName("error")
+    @Expose
+    private String error;
 
     public String getName() {
         return name;
@@ -73,5 +79,21 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }
