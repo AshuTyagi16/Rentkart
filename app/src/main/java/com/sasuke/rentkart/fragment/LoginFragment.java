@@ -15,6 +15,7 @@ import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
 import com.sasuke.rentkart.R;
+import com.sasuke.rentkart.activity.CategoriesActivity;
 import com.sasuke.rentkart.activity.MainActivity;
 import com.sasuke.rentkart.customfonts.EditText_Roboto_Regular;
 import com.sasuke.rentkart.dialog.FailureDialog;
@@ -59,7 +60,7 @@ public class LoginFragment extends BaseFragment {
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.activity_login;
+        return R.layout.fragment_login;
     }
 
     @Override
@@ -110,7 +111,7 @@ public class LoginFragment extends BaseFragment {
             @Override
             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                 dialog.dismiss();
-                startActivity(MainActivity.newIntent(getActivity()));
+                startActivity(CategoriesActivity.newIntent(getActivity()));
             }
         });
 

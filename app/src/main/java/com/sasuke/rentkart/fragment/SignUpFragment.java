@@ -73,7 +73,7 @@ public class SignUpFragment extends BaseFragment {
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.activity_sign_up;
+        return R.layout.fragment_sign_up;
     }
 
     @Override

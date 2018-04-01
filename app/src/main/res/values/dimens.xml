@@ -128,4 +128,13 @@
     <dimen name="notification_subtext_size">13sp</dimen>
     <dimen name="notification_top_pad">10dp</dimen>
     <dimen name="notification_top_pad_large_text">5dp</dimen>
+
+    <!-- My Dimens -->
+
+    <!-- Text Sizes -->
+    <dimen name="text_size_extra_small">10dp</dimen>
+    <dimen name="text_size_small">12dp</dimen>
+    <dimen name="text_size_normal">14dp</dimen>
+    <dimen name="text_size_large">16dp</dimen>
+    <dimen name="text_size_extra_large">18dp</dimen>
 </resources>

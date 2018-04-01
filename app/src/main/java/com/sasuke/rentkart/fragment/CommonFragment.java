@@ -83,7 +83,7 @@ public class CommonFragment extends Fragment implements DragLayout.GotoDetailLis
     }
 
     private void setupData() {
-        Picasso.with(getContext()).load(image).into(mIvCategory);
+        Picasso.get().load(image).into(mIvCategory);
         mTvCategoryName.setText(categoryName);
         mTvCategoryTagline.setText(categoryTagline);
         mTvCategoryDeal.setText(categoryDeal);

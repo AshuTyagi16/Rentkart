@@ -88,7 +88,7 @@ public class DetailActivity extends FragmentActivity {
     }
 
     private void setupData() {
-        Picasso.with(this).load(image).into(mIvCategory);
+        Picasso.get().load(image).into(mIvCategory);
         mTvCategoryName.setText(categoryName);
         mTvCategoryTagline.setText(categoryTagline);
         mTvCategoryDeal.setText(categoryDeal);
