@@ -7,7 +7,7 @@ package com.sasuke.rentkart.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Item {
+public class CartItem {
 
     @SerializedName("item_id")
     @Expose
@@ -18,28 +18,12 @@ public class Item {
     @SerializedName("item_thumbnail")
     @Expose
     private String itemThumbnail;
-    @SerializedName("item_price")
+    @SerializedName("quantity")
     @Expose
-    private int itemPrice;
-    @SerializedName("isAddedInCart")
+    private Integer quantity;
+    @SerializedName("price")
     @Expose
-    private boolean isAddedInCart;
-
-    public int getItemPrice() {
-        return itemPrice;
-    }
-
-    public void setItemPrice(int itemPrice) {
-        this.itemPrice = itemPrice;
-    }
-
-    public boolean isAddedInCart() {
-        return isAddedInCart;
-    }
-
-    public void setAddedInCart(boolean addedInCart) {
-        isAddedInCart = addedInCart;
-    }
+    private Integer price;
 
     public Integer getItemId() {
         return itemId;
@@ -63,6 +47,22 @@ public class Item {
 
     public void setItemThumbnail(String itemThumbnail) {
         this.itemThumbnail = itemThumbnail;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
 }

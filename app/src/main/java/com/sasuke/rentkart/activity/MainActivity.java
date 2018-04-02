@@ -71,7 +71,7 @@ public class MainActivity extends FragmentActivity {
 
     private void fillViewPager() {
 
-        fragments.add(CommonFragment.newInstance(R.drawable.laptops, "Laptops", "Save upto 10% on laptop", "Starts from $2599"));
+        fragments.add(CommonFragment.newInstance(R.drawable.ac, "Laptops", "Save upto 10% on laptop", "Starts from $2599"));
         fragments.add(CommonFragment.newInstance(R.drawable.ac, "Air Conditioners", "Upto 15% cashback on air conditioners", "Starts from $5499"));
         fragments.add(CommonFragment.newInstance(R.drawable.washing_machine, "Washing Machine", "Save upto 12% on washing machine", "Starts from $3000"));
         fragments.add(CommonFragment.newInstance(R.drawable.kitchen_appliances, "Kitchen Appliances", "Save upto 15% on kitchen appliances", "Starts from $250"));

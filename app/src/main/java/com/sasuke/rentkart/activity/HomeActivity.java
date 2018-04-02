@@ -10,8 +10,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.sasuke.rentkart.R;
+import com.sasuke.rentkart.fragment.CartFragment;
 import com.sasuke.rentkart.fragment.CategoriesFragment;
 import com.sasuke.rentkart.fragment.HomeFragment;
 import com.yarolegovich.slidingrootnav.SlidingRootNav;
@@ -21,6 +23,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by abc on 4/1/2018.
@@ -30,6 +33,8 @@ public class HomeActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.tv_title)
+    TextView mTvTitle;
 
     private SlidingRootNav slidingRootNav;
 
@@ -55,13 +60,13 @@ public class HomeActivity extends AppCompatActivity {
                 .withMenuLayout(R.layout.menu_left_drawer)
                 .inject();
 
-        replaceFragment(HomeFragment.newInstance(), R.id.container, "Rentkart");
+        replaceFragment(HomeFragment.newInstance(), "Rentkart");
 
         slidingRootNav.getLayout().findViewById(R.id.tv_home).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 slidingRootNav.closeMenu();
-                replaceFragment(HomeFragment.newInstance(), R.id.container, "Rentkart");
+                replaceFragment(HomeFragment.newInstance(), "Rentkart");
             }
         });
 
@@ -69,14 +74,22 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 slidingRootNav.closeMenu();
-                replaceFragment(CategoriesFragment.newInstance(), R.id.container, "Categories");
+                replaceFragment(CategoriesFragment.newInstance(), "Categories");
+            }
+        });
+
+        slidingRootNav.getLayout().findViewById(R.id.tv_cart).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                slidingRootNav.closeMenu();
+                replaceFragment(CartFragment.newInstance(), "Cart");
             }
         });
 
     }
 
-    private void replaceFragment(Fragment fragment, int containerId, String name) {
-        toolbar.setTitle(name);
+    private void replaceFragment(Fragment fragment, String name) {
+        mTvTitle.setText(name);
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         List<Fragment> fragments = fm.getFragments();
@@ -91,7 +104,7 @@ public class HomeActivity extends AppCompatActivity {
         Fragment f = fm.findFragmentByTag(tag);
         if (f == null) {
             f = fragment;
-            ft.add(containerId, f, tag);
+            ft.add(R.id.container, f, tag);
         } else {
             ft.show(f);
         }
@@ -100,5 +113,19 @@ public class HomeActivity extends AppCompatActivity {
         } catch (IllegalStateException e) {
         } catch (Exception e) {
         }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if (!getSupportFragmentManager().findFragmentByTag(HomeFragment.class.getName()).isVisible())
+            replaceFragment(HomeFragment.newInstance(), "Rentkart");
+        else
+            super.onBackPressed();
+    }
+
+    @OnClick(R.id.iv_cart)
+    public void openCart() {
+        replaceFragment(CartFragment.newInstance(), "Cart");
     }
 }

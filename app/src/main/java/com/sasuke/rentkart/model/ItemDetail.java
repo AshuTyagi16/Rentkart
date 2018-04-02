@@ -1,14 +1,13 @@
 package com.sasuke.rentkart.model;
 
-/**
- * Created by abc on 4/1/2018.
- */
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Item {
+/**
+ * Created by abc on 4/3/2018.
+ */
 
+public class ItemDetail {
     @SerializedName("item_id")
     @Expose
     private Integer itemId;
@@ -21,25 +20,9 @@ public class Item {
     @SerializedName("item_price")
     @Expose
     private int itemPrice;
-    @SerializedName("isAddedInCart")
+    @SerializedName("item_description")
     @Expose
-    private boolean isAddedInCart;
-
-    public int getItemPrice() {
-        return itemPrice;
-    }
-
-    public void setItemPrice(int itemPrice) {
-        this.itemPrice = itemPrice;
-    }
-
-    public boolean isAddedInCart() {
-        return isAddedInCart;
-    }
-
-    public void setAddedInCart(boolean addedInCart) {
-        isAddedInCart = addedInCart;
-    }
+    private String itemDescription;
 
     public Integer getItemId() {
         return itemId;
@@ -65,4 +48,19 @@ public class Item {
         this.itemThumbnail = itemThumbnail;
     }
 
+    public int getItemPrice() {
+        return itemPrice;
+    }
+
+    public void setItemPrice(int itemPrice) {
+        this.itemPrice = itemPrice;
+    }
+
+    public String getItemDescription() {
+        return itemDescription;
+    }
+
+    public void setItemDescription(String itemDescription) {
+        this.itemDescription = itemDescription;
+    }
 }

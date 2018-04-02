@@ -3,22 +3,21 @@ package com.sasuke.rentkart.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.sasuke.rentkart.R;
-import com.sasuke.rentkart.adapter.ItemsAdapter;
+import com.sasuke.rentkart.adapter.CartItemAdapter;
 import com.sasuke.rentkart.dialog.FailureDialog;
 import com.sasuke.rentkart.dialog.ProgressDialog;
 import com.sasuke.rentkart.event.CartItemsUpdatedFromCartEvent;
 import com.sasuke.rentkart.event.CartItemsUpdatedFromHomeEvent;
 import com.sasuke.rentkart.manager.PreferenceManager;
-import com.sasuke.rentkart.model.Item;
+import com.sasuke.rentkart.model.CartItem;
 import com.sasuke.rentkart.network.RentkartApi;
-import com.sasuke.rentkart.util.ItemDecorator;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -32,42 +31,34 @@ import butterknife.BindView;
  * Created by abc on 4/1/2018.
  */
 
-public class HomeFragment extends BaseFragment implements RentkartApi.OnGetItemsListener {
+public class CartFragment extends BaseFragment implements RentkartApi.OnGetUserCartListener {
 
-    @BindView(R.id.rv_items)
+    @BindView(R.id.rv_cart_items)
     RecyclerView mRvItems;
 
-    private ItemsAdapter mAdapter;
+    private CartItemAdapter mAdapter;
 
     private ProgressDialog progressDialog;
     private FailureDialog failureDialog;
 
-    public static HomeFragment newInstance() {
-        return new HomeFragment();
-    }
-
     @Override
     protected int getLayoutResId() {
-        return R.layout.fragment_home;
+        return R.layout.fragment_cart_items;
+    }
+
+    public static CartFragment newInstance() {
+        return new CartFragment();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        progressDialog = new ProgressDialog(getActivity(), getResources().getString(R.string.please_wait), "Getting the menu for you..", false);
+        progressDialog = new ProgressDialog(getActivity(), getResources().getString(R.string.please_wait), "Getting the items in your cart..", false);
 
-        mRvItems.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        mRvItems.addItemDecoration(new ItemDecorator(
-                getResources().getDimensionPixelSize(R.dimen.item_list_spacing),
-                100));
-        mAdapter = new ItemsAdapter();
+        mRvItems.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mAdapter = new CartItemAdapter();
         mRvItems.setAdapter(mAdapter);
         getItems();
-    }
-
-    private void getItems() {
-        RentkartApi.getInstance().getItemsList(PreferenceManager.getUser(getActivity()).getUserId(), this);
-        progressDialog.showDialog();
     }
 
 
@@ -83,14 +74,19 @@ public class HomeFragment extends BaseFragment implements RentkartApi.OnGetItems
         EventBus.getDefault().unregister(this);
     }
 
-    @Override
-    public void onGetItemsSuccess(ArrayList<Item> list) {
-        progressDialog.dismissDialog();
-        mAdapter.setItems(list);
+    private void getItems() {
+        RentkartApi.getInstance().getUserCart(PreferenceManager.getUser(getActivity()).getUserId(), this);
+        progressDialog.showDialog();
     }
 
     @Override
-    public void onGetItemsFailure(Throwable t) {
+    public void onGetUserCartSuccess(ArrayList<CartItem> list) {
+        progressDialog.dismissDialog();
+        mAdapter.setCartItems(list);
+    }
+
+    @Override
+    public void onGetUserCartFailure(Throwable t) {
         progressDialog.dismissDialog();
         failureDialog = new FailureDialog(getActivity(), "FAILED : " + t.getMessage(), "", getString(R.string.retry));
         failureDialog.showDialog();
@@ -104,14 +100,13 @@ public class HomeFragment extends BaseFragment implements RentkartApi.OnGetItems
         });
     }
 
-
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void onCartUpdatedEvent(CartItemsUpdatedFromCartEvent event) {
+    public void onCartUpdatedEvent(CartItemsUpdatedFromHomeEvent event) {
         getItems();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void onCartUpdatedEvent(CartItemsUpdatedFromHomeEvent event) {
+    public void onCartUpdatedEvent(CartItemsUpdatedFromCartEvent event) {
         getItems();
     }
 }

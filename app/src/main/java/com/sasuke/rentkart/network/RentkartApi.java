@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.sasuke.rentkart.model.CartItem;
 import com.sasuke.rentkart.model.Category;
 import com.sasuke.rentkart.model.Item;
 import com.sasuke.rentkart.model.User;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -90,8 +92,8 @@ public class RentkartApi {
         });
     }
 
-    public void getItemsForCategory(int categoryId, final OnGetItemsForCategoryListener onGetItemsForCategoryListener) {
-        service.getItemsForCategory(categoryId).enqueue(new Callback<ArrayList<Item>>() {
+    public void getItemsForCategory(int userId, int categoryId, final OnGetItemsForCategoryListener onGetItemsForCategoryListener) {
+        service.getItemsForCategory(userId, categoryId).enqueue(new Callback<ArrayList<Item>>() {
             @Override
             public void onResponse(Call<ArrayList<Item>> call, Response<ArrayList<Item>> response) {
                 onGetItemsForCategoryListener.onGetItemsForCategorySuccess(response.body());
@@ -104,8 +106,8 @@ public class RentkartApi {
         });
     }
 
-    public void getItemsList(final OnGetItemsListener onGetItemsListener) {
-        service.getItemsList().enqueue(new Callback<ArrayList<Item>>() {
+    public void getItemsList(int userId, final OnGetItemsListener onGetItemsListener) {
+        service.getItemsList(userId).enqueue(new Callback<ArrayList<Item>>() {
             @Override
             public void onResponse(Call<ArrayList<Item>> call, Response<ArrayList<Item>> response) {
                 onGetItemsListener.onGetItemsSuccess(response.body());
@@ -114,6 +116,48 @@ public class RentkartApi {
             @Override
             public void onFailure(Call<ArrayList<Item>> call, Throwable t) {
                 onGetItemsListener.onGetItemsFailure(t);
+            }
+        });
+    }
+
+    public void addItemToCart(int userId, int itemId, int price, final OnAddItemListener onAddItemListener) {
+        service.addItemToCart(userId, itemId, price).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                onAddItemListener.onAddItemSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                onAddItemListener.onAddItemFailure(t);
+            }
+        });
+    }
+
+    public void removeItemFromCart(int userId, int itemId, final OnRemoveItemListener onRemoveItemListener) {
+        service.removeItemFromCart(userId, itemId).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                onRemoveItemListener.onRemoveItemSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                onRemoveItemListener.onRemoveItemFailure(t);
+            }
+        });
+    }
+
+    public void getUserCart(int userId, final OnGetUserCartListener onGetUserCartListener) {
+        service.getUserCart(userId).enqueue(new Callback<ArrayList<CartItem>>() {
+            @Override
+            public void onResponse(Call<ArrayList<CartItem>> call, Response<ArrayList<CartItem>> response) {
+                onGetUserCartListener.onGetUserCartSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<CartItem>> call, Throwable t) {
+                onGetUserCartListener.onGetUserCartFailure(t);
             }
         });
     }
@@ -136,6 +180,27 @@ public class RentkartApi {
 
         void onGetItemsFailure(Throwable t);
     }
+
+    public interface OnAddItemListener {
+        void onAddItemSuccess(ResponseBody responseBody);
+
+        void onAddItemFailure(Throwable t);
+    }
+
+    public interface OnRemoveItemListener {
+        void onRemoveItemSuccess(ResponseBody responseBody);
+
+        void onRemoveItemFailure(Throwable t);
+    }
+
+    public interface OnGetUserCartListener {
+        void onGetUserCartSuccess(ArrayList<CartItem> list);
+
+        void onGetUserCartFailure(Throwable t);
+    }
+
+
+    /********Interceptor********/
 
     private OkHttpClient createHttpClient() {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();

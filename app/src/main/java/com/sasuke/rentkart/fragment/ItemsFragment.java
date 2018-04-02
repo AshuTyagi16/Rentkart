@@ -15,9 +15,16 @@ import com.sasuke.rentkart.R;
 import com.sasuke.rentkart.adapter.ItemsAdapter;
 import com.sasuke.rentkart.dialog.FailureDialog;
 import com.sasuke.rentkart.dialog.ProgressDialog;
+import com.sasuke.rentkart.event.CartItemsUpdatedFromCartEvent;
+import com.sasuke.rentkart.event.CartItemsUpdatedFromHomeEvent;
+import com.sasuke.rentkart.manager.PreferenceManager;
 import com.sasuke.rentkart.model.Item;
 import com.sasuke.rentkart.network.RentkartApi;
 import com.sasuke.rentkart.util.ItemDecorator;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -87,8 +94,21 @@ public class ItemsFragment extends BaseFragment implements RentkartApi.OnGetItem
     }
 
     private void getItems() {
-        RentkartApi.getInstance().getItemsForCategory(categoryId, this);
+        RentkartApi.getInstance().getItemsForCategory(PreferenceManager.getUser(getActivity()).getUserId(), categoryId, this);
         progressDialog.showDialog();
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -110,5 +130,15 @@ public class ItemsFragment extends BaseFragment implements RentkartApi.OnGetItem
                 getItems();
             }
         });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onCartUpdatedEvent(CartItemsUpdatedFromCartEvent event) {
+        getItems();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onCartUpdatedEvent(CartItemsUpdatedFromHomeEvent event) {
+        getItems();
     }
 }
